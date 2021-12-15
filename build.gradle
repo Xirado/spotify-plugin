@@ -12,8 +12,7 @@ repositories {
 }
 
 dependencies {
-    //implementation "dev.arbjerg.lavalink:plugin-api:0.1.0"
-    implementation "com.github.freyacodes:Lavalink:2bd6b22"
+    implementation "dev.arbjerg.lavalink:plugin-api:0.2.0"
     implementation "se.michaelthelin.spotify:spotify-web-api-java:7.0.0"
     runtimeOnly "com.github.freyacodes.lavalink:LavalinkServer:2bd6b22"
 
