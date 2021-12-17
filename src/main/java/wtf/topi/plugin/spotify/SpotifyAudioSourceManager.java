@@ -2,6 +2,7 @@ package wtf.topi.plugin.spotify;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManager;
+import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioItem;
 import com.sedmelluq.discord.lavaplayer.track.AudioReference;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
@@ -66,7 +67,7 @@ public class SpotifyAudioSourceManager implements AudioSourceManager{
 
 		var tracks = new ArrayList<AudioTrack>();
 		for(var item : album.getTracks().getItems()){
-			tracks.add(SpotifyTrack.of(item, this.manager));
+			tracks.add(SpotifyTrack.of(item, this.manager, this));
 		}
 
 		return new SpotifyPlaylist(album.getName(), tracks, 0);
@@ -74,7 +75,7 @@ public class SpotifyAudioSourceManager implements AudioSourceManager{
 
 	public SpotifyTrack getTrack(String id) throws IOException, ParseException, SpotifyWebApiException{
 		var track = this.spotify.getTrack(id).build().execute();
-		return SpotifyTrack.of(track, this.manager);
+		return SpotifyTrack.of(track, this.manager, this);
 	}
 
 	public SpotifyPlaylist getPlaylist(String id) throws IOException, ParseException, SpotifyWebApiException{
@@ -82,7 +83,7 @@ public class SpotifyAudioSourceManager implements AudioSourceManager{
 
 		var tracks = new ArrayList<AudioTrack>();
 		for(var item : playlist.getTracks().getItems()){
-			tracks.add(SpotifyTrack.of((Track) item.getTrack(), this.manager));
+			tracks.add(SpotifyTrack.of((Track) item.getTrack(), this.manager, this));
 		}
 
 		return new SpotifyPlaylist(playlist.getName(), tracks, 0);
@@ -100,7 +101,7 @@ public class SpotifyAudioSourceManager implements AudioSourceManager{
 
 	@Override
 	public AudioTrack decodeTrack(AudioTrackInfo trackInfo, DataInput input) throws IOException{
-		return null;
+		return new SpotifyTrack(trackInfo, this.manager, this);
 	}
 
 	@Override

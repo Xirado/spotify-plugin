@@ -4,22 +4,24 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import dev.arbjerg.lavalink.api.AudioPlayerManagerConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
 
+import java.util.concurrent.TimeUnit;
+
 @Service
 public class SpotifyPlugin implements AudioPlayerManagerConfiguration{
-
-	private static final Logger log = LoggerFactory.getLogger(SpotifyPlugin.class);
 
 	private final SpotifyApi spotify;
 	private final ClientCredentialsRequest clientCredentialsRequest;
 
-	public SpotifyPlugin(){
-		this.spotify = new SpotifyApi.Builder().setClientId("").setClientSecret("").build();
+	public SpotifyPlugin(SpotifyConfig config){
+		System.out.println("Loading SpotifyPlugin...");
+		this.spotify = new SpotifyApi.Builder().setClientId(config.clientId).setClientSecret(config.clientSecret).build();
 		this.clientCredentialsRequest = this.spotify.clientCredentials().build();
-		//this.scheduler.scheduleAtFixedRate(this::refreshAccessToken, 0, 1, TimeUnit.HOURS);
+		this.refreshAccessToken();
 	}
 
 	private void refreshAccessToken(){
@@ -27,12 +29,13 @@ public class SpotifyPlugin implements AudioPlayerManagerConfiguration{
 			this.spotify.setAccessToken(this.clientCredentialsRequest.execute().getAccessToken());
 		}
 		catch(Exception e){
-			log.error("Updating the access token failed", e);
+			System.out.println("Updating the access token failed: " + e);
 		}
 	}
 
 	@Override
 	public AudioPlayerManager configure(AudioPlayerManager manager){
+		System.out.println("Configuring SpotifyPlugin...");
 		manager.registerSourceManager(new SpotifyAudioSourceManager(manager, this.spotify));
 		return manager;
 	}

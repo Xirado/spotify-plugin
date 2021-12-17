@@ -1,23 +1,30 @@
 plugins {
     id 'java'
+    id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.0'
 }
 
-group 'org.example'
+group 'wtf.topi.plugin.spotify'
 version '1.0'
+mainClassName = "org.springframework.boot.loader.JarLauncher"
+
+sourceCompatibility = 11
+compileJava.options.encoding = 'UTF-8'
+
 
 repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }
+
     maven { url 'https://m2.dv8tion.net/releases' }
+    jcenter()
 }
 
 dependencies {
-    implementation "dev.arbjerg.lavalink:plugin-api:0.2.0"
+    implementation "dev.arbjerg.lavalink:plugin-api:0.3.0"
     implementation "se.michaelthelin.spotify:spotify-web-api-java:7.0.0"
-    //runtimeOnly "com.github.freyacodes.lavalink:LavalinkServer:8315b07"
+    implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.1.8.RELEASE') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
+    runtimeOnly "com.github.freyacodes.lavalink:Lavalink-Server:f748ef0"
 }
-
-
-sourceCompatibility = 11
-compileJava.options.encoding = 'UTF-8'
