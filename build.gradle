@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'application'
-    id 'com.github.johnrengelman.shadow' version '7.1.0'
+    id 'maven-publish'
 }
 
 group 'wtf.topi.plugin.spotify'
@@ -21,10 +21,20 @@ repositories {
 }
 
 dependencies {
-    implementation "dev.arbjerg.lavalink:plugin-api:0.3.0"
+    implementation "dev.arbjerg.lavalink:plugin-api:0.7.0"
     implementation "se.michaelthelin.spotify:spotify-web-api-java:7.0.0"
     implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.1.8.RELEASE') {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
     }
-    runtimeOnly "com.github.freyacodes.lavalink:Lavalink-Server:f748ef0"
+    runtimeOnly "com.github.freyacodes.lavalink:Lavalink-Server:aee109e"
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            pom {
+                from components.java
+            }
+        }
+    }
 }
