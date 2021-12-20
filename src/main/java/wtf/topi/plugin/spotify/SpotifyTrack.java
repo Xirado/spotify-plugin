@@ -36,10 +36,17 @@ public class SpotifyTrack extends DelegatedAudioTrack {
     @Override
     public void process(LocalAudioTrackExecutor executor) throws Exception {
         var track = this.manager.source(YoutubeAudioSourceManager.class).loadItem(this.manager, new AudioReference("ytsearch:" + trackInfo.title + " " + trackInfo.author, null));
+        if (track == null) {
+            throw new RuntimeException("No matching youtube track found");
+        }
         if (track instanceof AudioPlaylist) {
             track = ((AudioPlaylist) track).getTracks().get(0);
         }
-        processDelegate((InternalAudioTrack) track, executor);
+        if (track instanceof InternalAudioTrack) {
+            processDelegate((InternalAudioTrack) track, executor);
+            return;
+        }
+        throw new RuntimeException("No matching youtube track found");
     }
 
     @Override
