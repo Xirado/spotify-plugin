@@ -35,8 +35,8 @@ shadowJar {
     archiveClassifier.set('')
 }
 
-artifacts {
-    archives shadowJar
+jar {
+    enabled = false
 }
 
 publishing {
