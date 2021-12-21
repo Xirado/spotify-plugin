@@ -32,6 +32,7 @@ dependencies {
 
 shadowJar {
     configurations = [project.configurations.compileClasspath]
+    archiveClassifier.set('')
 }
 
 artifacts {
