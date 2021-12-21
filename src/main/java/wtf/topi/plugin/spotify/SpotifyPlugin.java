@@ -2,14 +2,9 @@ package wtf.topi.plugin.spotify;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import dev.arbjerg.lavalink.api.AudioPlayerManagerConfiguration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.requests.authorization.client_credentials.ClientCredentialsRequest;
-
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class SpotifyPlugin implements AudioPlayerManagerConfiguration{

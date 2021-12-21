@@ -30,6 +30,14 @@ dependencies {
     runtimeOnly "com.github.freyacodes.lavalink:Lavalink-Server:aee109e"
 }
 
+shadowJar {
+    configurations = [project.configurations.compileClasspath]
+}
+
+artifacts {
+    archives shadowJar
+}
+
 publishing {
     publications {
         maven(MavenPublication) {
