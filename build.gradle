@@ -23,7 +23,7 @@ repositories {
 }
 
 dependencies {
-    implementation "dev.arbjerg.lavalink:plugin-api:0.7.0"
+    compileOnly "dev.arbjerg.lavalink:plugin-api:0.7.0"
     implementation "se.michaelthelin.spotify:spotify-web-api-java:7.0.0"
     implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.1.8.RELEASE') {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
@@ -32,9 +32,12 @@ dependencies {
 }
 
 shadowJar {
-    configurations = [project.configurations.compileClasspath]
+    def impl = project.configurations.implementation
+    impl.canBeResolved(true)
+    configurations = [impl]
     archiveBaseName.set(archivesBaseName)
     archiveClassifier.set('')
+    relocate 'com.google.gson', 'com.google.gson2'
 }
 
 publishing {
