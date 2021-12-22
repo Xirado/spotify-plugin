@@ -7,7 +7,6 @@ plugins {
 
 group "com.github"
 version "1.0.0"
-archivesBaseName = "spotify-plugin"
 mainClassName = "org.springframework.boot.loader.JarLauncher"
 
 sourceCompatibility = 11
