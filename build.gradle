@@ -1,51 +1,50 @@
 plugins {
-    id 'java'
-    id 'application'
-    id 'maven-publish'
-    id 'com.github.johnrengelman.shadow' version '7.1.0'
+	id "java"
+	id "application"
+	id "maven-publish"
+	id "com.github.johnrengelman.shadow" version "7.1.0"
 }
 
-group 'com.github'
-version '1.0.0'
-archivesBaseName = 'spotify-plugin'
+group "com.github"
+version "1.0.0"
+archivesBaseName = "spotify-plugin"
 mainClassName = "org.springframework.boot.loader.JarLauncher"
 
 sourceCompatibility = 11
-compileJava.options.encoding = 'UTF-8'
+compileJava.options.encoding = "UTF-8"
 
 
 repositories {
-    mavenCentral()
-    maven { url 'https://jitpack.io' }
+	mavenCentral()
+	maven { url "https://jitpack.io" }
 
-    maven { url 'https://m2.dv8tion.net/releases' }
-    jcenter()
+	maven { url "https://m2.dv8tion.net/releases" }
+	jcenter()
 }
 
 dependencies {
-    compileOnly "dev.arbjerg.lavalink:plugin-api:0.7.0"
-    implementation "se.michaelthelin.spotify:spotify-web-api-java:7.0.0"
-    implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.1.8.RELEASE') {
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
-    }
-    runtimeOnly "com.github.freyacodes.lavalink:Lavalink-Server:aee109e"
+	compileOnly "dev.arbjerg.lavalink:plugin-api:0.7.0"
+	implementation "se.michaelthelin.spotify:spotify-web-api-java:7.0.0"
+	implementation("org.springframework.boot:spring-boot-starter-web:2.1.8.RELEASE") {
+		exclude group: "org.springframework.boot", module: "spring-boot-starter-tomcat"
+	}
+	runtimeOnly "com.github.freyacodes.lavalink:Lavalink-Server:aee109e"
 }
 
 shadowJar {
-    def impl = project.configurations.implementation
-    impl.canBeResolved(true)
-    configurations = [impl]
-    archiveBaseName.set(archivesBaseName)
-    archiveClassifier.set('')
-    relocate 'com.google.gson', 'com.google.gson2'
+	def impl = project.configurations.implementation
+	impl.canBeResolved(true)
+	configurations = [impl]
+	archiveClassifier.set("")
+	relocate "com.google.gson", "com.google.gson2"
 }
 
 publishing {
-    publications {
-        maven(MavenPublication) {
-            pom {
-                from components.java
-            }
-        }
-    }
+	publications {
+		maven(MavenPublication) {
+			pom {
+				from components.java
+			}
+		}
+	}
 }
