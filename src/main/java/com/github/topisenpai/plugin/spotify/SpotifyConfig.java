@@ -1,4 +1,4 @@
-package wtf.topi.plugin.spotify;
+package com.github.topisenpai.plugin.spotify;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

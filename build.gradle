@@ -5,8 +5,9 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.0'
 }
 
-group 'wtf.topi.plugin.spotify'
+group 'com.github'
 version '1.0.0'
+archivesBaseName = 'spotify-plugin'
 mainClassName = "org.springframework.boot.loader.JarLauncher"
 
 sourceCompatibility = 11
@@ -32,21 +33,15 @@ dependencies {
 
 shadowJar {
     configurations = [project.configurations.compileClasspath]
+    archiveBaseName.set(archivesBaseName)
     archiveClassifier.set('')
-}
-
-jar {
-    enabled = false
-}
-
-artifacts {
-    archives shadowJar
 }
 
 publishing {
     publications {
         maven(MavenPublication) {
             pom {
+                artifactId = "spotify-plugin"
                 from components.java
             }
         }

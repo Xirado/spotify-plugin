@@ -1,4 +1,4 @@
-package wtf.topi.plugin.spotify;
+package com.github.topisenpai.plugin.spotify;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManager;
