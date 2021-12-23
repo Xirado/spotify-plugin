@@ -3,7 +3,7 @@ package com.github.topisenpai.plugin.spotify;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-@ConfigurationProperties(prefix = "lavalink.plugins.spotify")
+@ConfigurationProperties(prefix = "plugins.spotify")
 @Component
 public class SpotifyConfig {
 	public String clientId;

@@ -18,11 +18,10 @@ lavalink:
 To get your Spotify clientId & clientSecret go to https://developer.spotify.com/dashboard/applications create a new application & copy the `Client ID` & `Client Secret` into your `application.yml` like the following
 
 ```yaml
-lavalink:
-    plugins:
-        spotify:
-            clientId: "your client id"
-            clientSecret: "your client secret"
+plugins:
+    spotify:
+        clientId: "your client id"
+        clientSecret: "your client secret"
 ```
 
 ## Usage
@@ -38,8 +37,8 @@ In some cases a requested Spotify songs can't be found on YouTube then you will 
 {
     "op": "event",
     "type": "TrackStartEvent",
-    "track": "QAAAdwIADTMyNTM0NmI0NTZiNTYAEDc0NXY5NjQ4OTY3dmI0ODkAAAAAAAO9CAALamRXaEpjcnJqUXMAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1qZFdoSmNycmpRcwAHc3BvdGlmeQAAAAAAA7ok",
-    "guildId": "730879265956167740"
+    "guildId": "730879265956167740",
+    "track": "QAAAdwIADTMyNTM0NmI0NTZiNTYAEDc0NXY5NjQ4OTY3dmI0ODkAAAAAAAO9CAALamRXaEpjcnJqUXMAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1qZFdoSmNycmpRcwAHc3BvdGlmeQAAAAAAA7ok"
 }
 ```
 </details>
@@ -49,16 +48,16 @@ In some cases a requested Spotify songs can't be found on YouTube then you will 
 
 ```json
 {
-    "exception": {
-        "severity": "FAULT",
-        "cause": "java.lang.RuntimeException: No matching youtube track found",
-        "message": "Something broke when playing the track."
-    },
     "op": "event",
     "type": "TrackExceptionEvent",
+    "guildId": "730879265956167740",
     "track": "QAAAdwIADTMyNTM0NmI0NTZiNTYAEDc0NXY5NjQ4OTY3dmI0ODkAAAAAAAO9CAALamRXaEpjcnJqUXMAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1qZFdoSmNycmpRcwAHc3BvdGlmeQAAAAAAA7ok",
     "error": "Something broke when playing the track.",
-    "guildId": "730879265956167740"
+    "exception": {
+        "severity": "FAULT",
+        "cause": "com.github.topisenpai.plugin.spotify.YouTubeTrackNotFoundException: No matching youtube track found",
+        "message": "Something broke when playing the track."
+    }
 }
 ```
 </details>
@@ -71,8 +70,8 @@ In some cases a requested Spotify songs can't be found on YouTube then you will 
     "op": "event",
     "reason": "CLEANUP",
     "type": "TrackEndEvent",
-    "track": "QAAAdwIADTMyNTM0NmI0NTZiNTYAEDc0NXY5NjQ4OTY3dmI0ODkAAAAAAAO9CAALamRXaEpjcnJqUXMAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1qZFdoSmNycmpRcwAHc3BvdGlmeQAAAAAAA7ok",
-    "guildId": "730879265956167740"
+    "guildId": "730879265956167740",
+    "track": "QAAAdwIADTMyNTM0NmI0NTZiNTYAEDc0NXY5NjQ4OTY3dmI0ODkAAAAAAAO9CAALamRXaEpjcnJqUXMAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1qZFdoSmNycmpRcwAHc3BvdGlmeQAAAAAAA7ok"
 }
 ```
 </details>
