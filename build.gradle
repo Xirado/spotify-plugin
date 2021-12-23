@@ -24,9 +24,6 @@ repositories {
 dependencies {
 	compileOnly "dev.arbjerg.lavalink:plugin-api:0.8.1"
 	implementation "se.michaelthelin.spotify:spotify-web-api-java:7.0.0"
-	implementation("org.springframework.boot:spring-boot-starter-web:2.1.8.RELEASE") {
-		exclude group: "org.springframework.boot", module: "spring-boot-starter-tomcat"
-	}
 	runtimeOnly "com.github.freyacodes.lavalink:Lavalink-Server:47f4771"
 }
 
