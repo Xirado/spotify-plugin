@@ -21,7 +21,6 @@ public class SpotifyAudioSourceManager implements AudioSourceManager {
 
 	public static final Pattern SPOTIFY_URL_PATTERN = Pattern.compile("(https?://)?(www\\.)?open\\.spotify\\.com/(user/[a-zA-Z0-9-_]+/)?(?<type>track|album|playlist)/(?<identifier>[a-zA-Z0-9-_]+)");
 
-
 	private final AudioPlayerManager manager;
 	private final SpotifyApi spotify;
 
