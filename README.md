@@ -2,7 +2,7 @@
 
 This plugin lazy loads playlists/albums/songs from [Spotify](https://www.spotify.com)
 
-## Installing
+## Installation
 
 To install this plugin either download the latest release and place it into your `plugins` folder or add the following into your `application.yml` 
 
