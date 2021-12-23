@@ -43,7 +43,8 @@ public class SpotifyPlugin implements AudioPlayerManagerConfiguration, AudioSour
 				try {
 					this.spotify.setAccessToken(this.clientCredentialsRequest.execute().getAccessToken());
 					Thread.sleep(29 * 60 * 1000);
-				} catch (Exception e) {
+				}
+				catch (Exception e) {
 					log.error("Failed to update the spotify access token: " + e);
 				}
 			}
@@ -133,8 +134,7 @@ public class SpotifyPlugin implements AudioPlayerManagerConfiguration, AudioSour
 
 	@Override
 	public void shutdown() {
-		log.info("Shutting down Spotify Plugin...");
-		this.thread.interrupt();
+
 	}
 
 }
