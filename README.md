@@ -33,6 +33,7 @@ In some cases a the requested Spotify songs can't be found on YouTube then you w
 
 <details>
 <summary>TrackStartEvent Example</summary>
+
 ```json
 {
     "op": "event",
@@ -45,6 +46,7 @@ In some cases a the requested Spotify songs can't be found on YouTube then you w
 
 <details>
 <summary>TrackExceptionEvent Example</summary>
+
 ```json
 {
     "exception": {
@@ -63,6 +65,7 @@ In some cases a the requested Spotify songs can't be found on YouTube then you w
         
 <details>
 <summary>TrackEndEvent Example</summary>
+
 ```json
 {
     "op": "event",
