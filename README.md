@@ -15,7 +15,7 @@ lavalink:
 
 ## Configuration
 
-To get your Spotify clientId & clientSecret go to https://developer.spotify.com/dashboard/applications create a new application & copy them into your `application.yml` liek the following
+To get your Spotify clientId & clientSecret go to https://developer.spotify.com/dashboard/applications create a new application & copy the `Client ID` & `Client Secret` into your `application.yml` liek the following
 
 ```yaml
 lavalink:
