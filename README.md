@@ -15,7 +15,7 @@ lavalink:
 
 ## Configuration
 
-To get your Spotify clientId & clientSecret go to https://developer.spotify.com/dashboard/applications create a new application & copy the `Client ID` & `Client Secret` into your `application.yml` liek the following
+To get your Spotify clientId & clientSecret go to https://developer.spotify.com/dashboard/applications create a new application & copy the `Client ID` & `Client Secret` into your `application.yml` like the following
 
 ```yaml
 lavalink:
@@ -29,7 +29,7 @@ lavalink:
 
 Just tell Lavalink to load a Spotify url like `https://open.spotify.com/album/7qemUq4n71awwVPOaX7jw4` and the plugin does the rest
 
-In some cases a the requested Spotify songs can't be found on YouTube then you will receive a normal `TrackStartEvent` followed by a `TrackExceptionEvent` and later `TrackEndEvent`
+In some cases a requested Spotify songs can't be found on YouTube then you will receive a normal `TrackStartEvent` followed by a `TrackExceptionEvent` and later `TrackEndEvent`
 
 <details>
 <summary>TrackStartEvent Example</summary>
