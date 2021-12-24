@@ -1,6 +1,6 @@
 # Spotify-Plugin
 
-This plugin lazy loads playlists/albums/songs from [Spotify](https://www.spotify.com)
+This plugin lazy loads [Spotify](https://www.spotify.com) playlists/albums/songs from [YouTube](https://youtube.com)
 
 ## Installation
 
