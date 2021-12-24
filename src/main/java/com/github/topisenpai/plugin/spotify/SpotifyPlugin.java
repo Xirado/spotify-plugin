@@ -27,30 +27,40 @@ public class SpotifyPlugin implements AudioPlayerManagerConfiguration, AudioSour
 
 	public static final Pattern SPOTIFY_URL_PATTERN = Pattern.compile("(https?://)?(www\\.)?open\\.spotify\\.com/(user/[a-zA-Z0-9-_]+/)?(?<type>track|album|playlist)/(?<identifier>[a-zA-Z0-9-_]+)");
 	private static final Logger log = LoggerFactory.getLogger(SpotifyPlugin.class);
-
-	private final SpotifyApi spotify;
-	private final ClientCredentialsRequest clientCredentialsRequest;
 	public AudioPlayerManager manager;
-	private final Thread thread;
+	private SpotifyApi spotify;
+	private ClientCredentialsRequest clientCredentialsRequest;
 
 	public SpotifyPlugin(SpotifyConfig config) {
 		log.info("Loading Spotify Plugin...");
+		if (config.clientId == null || config.clientId.isEmpty()) {
+			log.error("No spotify client id found in configuration. Aborting start. config key is 'plugins.spotify.clientId");
+			return;
+		}
+		if (config.clientSecret == null || config.clientSecret.isEmpty()) {
+			log.error("No spotify client secret found in configuration. Aborting start. config key is 'plugins.spotify.clientSecret");
+			return;
+		}
 		this.spotify = new SpotifyApi.Builder().setClientId(config.clientId).setClientSecret(config.clientSecret).build();
 		this.clientCredentialsRequest = this.spotify.clientCredentials().build();
 
-		this.thread = new Thread(() -> {
-			while (true) {
-				try {
-					this.spotify.setAccessToken(this.clientCredentialsRequest.execute().getAccessToken());
-					Thread.sleep(29 * 60 * 1000);
+		var thread = new Thread(() -> {
+			try {
+				while (true) {
+					try {
+						this.spotify.setAccessToken(this.clientCredentialsRequest.execute().getAccessToken());
+						Thread.sleep(29 * 60 * 1000);
+					} catch (IOException | SpotifyWebApiException | ParseException e) {
+						log.error("Failed to update the spotify access token. Retrying in 1 minute ", e);
+						Thread.sleep(60 * 1000);
+					}
 				}
-				catch (Exception e) {
-					log.error("Failed to update the spotify access token: " + e);
-				}
+			} catch (Exception e) {
+				log.error("Failed to update the spotify access token", e);
 			}
 		});
-		this.thread.setDaemon(true);
-		this.thread.start();
+		thread.setDaemon(true);
+		thread.start();
 	}
 
 	@Override
@@ -67,6 +77,9 @@ public class SpotifyPlugin implements AudioPlayerManagerConfiguration, AudioSour
 
 	@Override
 	public AudioItem loadItem(AudioPlayerManager manager, AudioReference reference) {
+		if (this.spotify == null) {
+			return null;
+		}
 		var matcher = SPOTIFY_URL_PATTERN.matcher(reference.identifier);
 		if (!matcher.find()) {
 			return null;
