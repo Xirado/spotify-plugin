@@ -48,8 +48,9 @@ public class SpotifyPlugin implements AudioPlayerManagerConfiguration, AudioSour
 			try {
 				while (true) {
 					try {
-						this.spotify.setAccessToken(this.clientCredentialsRequest.execute().getAccessToken());
-						Thread.sleep(29 * 60 * 1000);
+						var clientCredentials = this.clientCredentialsRequest.execute();
+						this.spotify.setAccessToken(clientCredentials.getAccessToken());
+						Thread.sleep(clientCredentials.getExpiresIn() * 1000);
 					} catch (IOException | SpotifyWebApiException | ParseException e) {
 						log.error("Failed to update the spotify access token. Retrying in 1 minute ", e);
 						Thread.sleep(60 * 1000);
@@ -66,7 +67,6 @@ public class SpotifyPlugin implements AudioPlayerManagerConfiguration, AudioSour
 	@Override
 	public AudioPlayerManager configure(AudioPlayerManager manager) {
 		this.manager = manager;
-		manager.registerSourceManager(this);
 		return manager;
 	}
 
