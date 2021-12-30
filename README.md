@@ -1,6 +1,8 @@
+[![](https://jitpack.io/v/TopiSenpai/spotify-plugin.svg)](https://jitpack.io/#TopiSenpai/spotify-plugin)
+
 # Spotify-Plugin
 
-This plugin lazy loads [Spotify](https://www.spotify.com) playlists/albums/songs/artists(top tracks)from [YouTube](https://youtube.com)
+A [Lavalink](https://github.com/freyacodes/Lavalink) plugin to lazy load [Spotify](https://www.spotify.com) playlists/albums/songs/artists(top tracks) from [YouTube](https://youtube.com)
 
 ## Installation
 
