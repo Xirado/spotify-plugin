@@ -10,30 +10,55 @@ import se.michaelthelin.spotify.model_objects.specification.TrackSimplified;
 
 public class SpotifyTrack extends DelegatedAudioTrack {
 
-	private final SpotifyPlugin spotifyPlugin;
+	private final String isrc;
+	private final SpotifySourceManager spotifySourceManager;
+	private final YoutubeAudioSourceManager youtubeAudioSourceManager;
 
-	public SpotifyTrack(String title, String identifier, ArtistSimplified[] artists, Integer trackDuration, SpotifyPlugin spotifyPlugin) {
-		this(new AudioTrackInfo(title, artists[0].getName(), trackDuration.longValue(), identifier, false, "https://open.spotify.com/track/" + identifier), spotifyPlugin);
+	public SpotifyTrack(String title, String identifier, String isrc, String uri, ArtistSimplified[] artists, Integer trackDuration, SpotifySourceManager spotifySourceManager, YoutubeAudioSourceManager youtubeAudioSourceManager) {
+		this(new AudioTrackInfo(title,
+				artists.length == 0 ? "unknown" : artists[0].getName(),
+				trackDuration.longValue(),
+				identifier == null ? uri : identifier,
+				false,
+				identifier == null ? null : "https://open.spotify.com/track/" + identifier
+		), isrc, spotifySourceManager, youtubeAudioSourceManager);
 	}
 
-	public SpotifyTrack(AudioTrackInfo trackInfo, SpotifyPlugin spotifyPlugin) {
+	public SpotifyTrack(AudioTrackInfo trackInfo, String isrc, SpotifySourceManager spotifySourceManager, YoutubeAudioSourceManager audioSourceManager) {
 		super(trackInfo);
-		this.spotifyPlugin = spotifyPlugin;
+		this.isrc = isrc;
+		this.spotifySourceManager = spotifySourceManager;
+		this.youtubeAudioSourceManager = audioSourceManager;
 	}
 
-	public static SpotifyTrack of(TrackSimplified track, SpotifyPlugin spotifyPlugin) {
-		return new SpotifyTrack(track.getName(), track.getId(), track.getArtists(), track.getDurationMs(), spotifyPlugin);
+	public static SpotifyTrack of(TrackSimplified track, SpotifySourceManager spotifySourceManager, YoutubeAudioSourceManager youtubeAudioSourceManager) {
+		return new SpotifyTrack(track.getName(), track.getId(), null, track.getUri(), track.getArtists(), track.getDurationMs(), spotifySourceManager, youtubeAudioSourceManager);
 	}
 
-	public static SpotifyTrack of(Track track, SpotifyPlugin spotifyPlugin) {
-		return new SpotifyTrack(track.getName(), track.getId(), track.getArtists(), track.getDurationMs(), spotifyPlugin);
+	public static SpotifyTrack of(Track track, SpotifySourceManager spotifySourceManager, YoutubeAudioSourceManager youtubeAudioSourceManager) {
+		return new SpotifyTrack(track.getName(), track.getId(), track.getExternalIds().getExternalIds().getOrDefault("isrc", null), track.getUri(), track.getArtists(), track.getDurationMs(), spotifySourceManager, youtubeAudioSourceManager);
+	}
+
+	public String getISRC() {
+		return this.isrc;
+	}
+
+	private String getQuery() {
+		var query = trackInfo.title;
+		if (!trackInfo.author.equals("unknown")) {
+			query += " " + trackInfo.author;
+		}
+		return query;
 	}
 
 	@Override
 	public void process(LocalAudioTrackExecutor executor) throws Exception {
-		var track = this.spotifyPlugin.manager.source(YoutubeAudioSourceManager.class).loadItem(this.spotifyPlugin.manager, new AudioReference("ytsearch:" + trackInfo.title + " " + trackInfo.author, null));
+		AudioItem track = null;
+		if (this.isrc != null) {
+			track = this.youtubeAudioSourceManager.loadItem(null, new AudioReference("ytsearch:\"" + this.isrc + "\"", null));
+		}
 		if (track == null) {
-			throw new YouTubeTrackNotFoundException("No matching youtube track found");
+			track = this.youtubeAudioSourceManager.loadItem(null, new AudioReference(getQuery(), null));
 		}
 		if (track instanceof AudioPlaylist) {
 			track = ((AudioPlaylist) track).getTracks().get(0);
@@ -42,12 +67,12 @@ public class SpotifyTrack extends DelegatedAudioTrack {
 			processDelegate((InternalAudioTrack) track, executor);
 			return;
 		}
-		throw new YouTubeTrackNotFoundException("No matching youtube track found");
+		throw new SpotifyTrackNotFoundException();
 	}
 
 	@Override
 	public AudioSourceManager getSourceManager() {
-		return this.spotifyPlugin;
+		return this.spotifySourceManager;
 	}
 
 }

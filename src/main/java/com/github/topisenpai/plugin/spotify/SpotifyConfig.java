@@ -1,5 +1,6 @@
 package com.github.topisenpai.plugin.spotify;
 
+import com.neovisionaries.i18n.CountryCode;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -8,9 +9,10 @@ import org.springframework.stereotype.Component;
 public class SpotifyConfig {
 	public String clientId;
 	public String clientSecret;
+	public CountryCode countryCode = CountryCode.US;
 
 	public String getClientId() {
-		return clientId;
+		return this.clientId;
 	}
 
 	public void setClientId(String clientId) {
@@ -18,11 +20,19 @@ public class SpotifyConfig {
 	}
 
 	public String getClientSecret() {
-		return clientSecret;
+		return this.clientSecret;
 	}
 
 	public void setClientSecret(String clientSecret) {
 		this.clientSecret = clientSecret;
+	}
+
+	public CountryCode getCountryCode() {
+		return this.countryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = CountryCode.getByCode(countryCode);
 	}
 
 }
