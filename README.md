@@ -11,7 +11,7 @@ To install this plugin either download the latest release and place it into your
 ```yaml
 lavalink:
   plugins:
-    - dependency: "com.github.topisenpai:spotify-plugin:LATEST-RELEASE" # replace LATEST-RELEASE with the latest release version!
+    - dependency: "com.github.topisenpai:spotify-plugin:vx.x.x" # replace vx.x.x with the latest release tag!
       repository: "https://jitpack.io"
 ```
 
