@@ -2,7 +2,7 @@
 
 # Spotify-Plugin
 
-A [Lavalink](https://github.com/freyacodes/Lavalink) plugin to lazy load [Spotify](https://www.spotify.com) playlists/albums/songs/artists(top tracks) from [YouTube](https://youtube.com)
+A [Lavalink](https://github.com/freyacodes/Lavalink) plugin to lazy load [Spotify](https://www.spotify.com) playlists/albums/songs/artists(top tracks)/search results from [YouTube](https://youtube.com)
 
 ## Installation
 
