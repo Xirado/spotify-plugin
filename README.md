@@ -31,9 +31,11 @@ plugins:
 ## Usage
 
 Just tell Lavalink to load a Spotify url and the plugin does the rest
+You can also use `spearch:<query>`(remove the <>) to search for songs on Spotify 
 
 #### All supported Spotify URL types are:
 
+* spearch:animals architects
 * https://open.spotify.com/track/0eG08cBeKk0mzykKjw4hcQ
 * https://open.spotify.com/album/7qemUq4n71awwVPOaX7jw4
 * https://open.spotify.com/playlist/37i9dQZF1DXaZvoHOvRg3p
