@@ -127,6 +127,7 @@ public class SpotifySourceManager implements AudioSourceManager {
 		if (spotifyTrack.getISRC() != null) {
 			try {
 				writeNullableText(output, spotifyTrack.getISRC());
+				writeNullableText(output, spotifyTrack.getArtworkURL());
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
@@ -136,11 +137,13 @@ public class SpotifySourceManager implements AudioSourceManager {
 	@Override
 	public AudioTrack decodeTrack(AudioTrackInfo trackInfo, DataInput input) {
 		String isrc = null;
+		String artworkURL = null;
 		try {
 			isrc = readNullableText(input);
+			artworkURL = readNullableText(input);
 		} catch (IOException ignored) {
 		}
-		return new SpotifyTrack(trackInfo, isrc, this);
+		return new SpotifyTrack(trackInfo, isrc, artworkURL, this);
 	}
 
 	@Override
@@ -178,7 +181,7 @@ public class SpotifySourceManager implements AudioSourceManager {
 				if (item.getType() != ModelObjectType.TRACK) {
 					continue;
 				}
-				tracks.add(SpotifyTrack.of(item, this));
+				tracks.add(SpotifyTrack.of(item, album, this));
 			}
 		}
 		while (paging.getNext() != null);
