@@ -54,7 +54,7 @@ public class SpotifyTrack extends DelegatedAudioTrack {
 	}
 
 	private String getQuery() {
-		var query = trackInfo.title;
+		var query = "ytsearch:" + trackInfo.title;
 		if (!trackInfo.author.equals("unknown")) {
 			query += " " + trackInfo.author;
 		}
@@ -70,6 +70,7 @@ public class SpotifyTrack extends DelegatedAudioTrack {
 		if (track == null) {
 			track = this.spotifySourceManager.getSearchSourceManager().loadItem(null, new AudioReference(getQuery(), null));
 		}
+
 		if (track instanceof AudioPlaylist) {
 			track = ((AudioPlaylist) track).getTracks().get(0);
 		}

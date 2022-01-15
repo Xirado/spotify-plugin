@@ -2,7 +2,11 @@ package com.github.topisenpai.plugin.spotify;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManager;
-import com.sedmelluq.discord.lavaplayer.track.*;
+import com.sedmelluq.discord.lavaplayer.track.AudioItem;
+import com.sedmelluq.discord.lavaplayer.track.AudioReference;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
+import com.sedmelluq.discord.lavaplayer.track.BasicAudioPlaylist;
 import org.apache.hc.core5.http.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -124,13 +128,11 @@ public class SpotifySourceManager implements AudioSourceManager {
 	@Override
 	public void encodeTrack(AudioTrack track, DataOutput output) {
 		var spotifyTrack = (SpotifyTrack) track;
-		if (spotifyTrack.getISRC() != null) {
-			try {
-				writeNullableText(output, spotifyTrack.getISRC());
-				writeNullableText(output, spotifyTrack.getArtworkURL());
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
+		try {
+			writeNullableText(output, spotifyTrack.getISRC());
+			writeNullableText(output, spotifyTrack.getArtworkURL());
+		} catch (IOException e) {
+			throw new RuntimeException(e);
 		}
 	}
 
