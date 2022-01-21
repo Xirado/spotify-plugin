@@ -1,4 +1,4 @@
-package com.github.topisenpai.plugin.spotify;
+package com.github.topisenpai.spotify.plugin;
 
 import com.neovisionaries.i18n.CountryCode;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class SpotifyConfig{
 
-	public String clientId;
-	public String clientSecret;
-	public CountryCode countryCode = CountryCode.US;
+	private String clientId;
+	private String clientSecret;
+	private CountryCode countryCode = CountryCode.US;
 
 	public String getClientId(){
 		return this.clientId;

@@ -1,4 +1,4 @@
-package com.github.topisenpai.plugin.spotify;
+package com.github.topisenpai.spotify;
 
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.track.AudioItem;

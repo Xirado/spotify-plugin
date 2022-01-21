@@ -1,7 +1,9 @@
-package com.github.topisenpai.plugin.spotify;
+package com.github.topisenpai.spotify;
 
+import com.neovisionaries.i18n.CountryCode;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManager;
+import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.track.AudioItem;
 import com.sedmelluq.discord.lavaplayer.track.AudioReference;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
@@ -33,24 +35,27 @@ public class SpotifySourceManager implements AudioSourceManager{
 	public static final Pattern SPOTIFY_URL_PATTERN = Pattern.compile("(https?://)?(www\\.)?open\\.spotify\\.com/(user/[a-zA-Z0-9-_]+/)?(?<type>track|album|playlist|artist)/(?<identifier>[a-zA-Z0-9-_]+)");
 	public static final String SEARCH_PREFIX = "spsearch:";
 
-	private static final Logger log = LoggerFactory.getLogger(SpotifyPlugin.class);
+	private static final Logger log = LoggerFactory.getLogger(SpotifySourceManager.class);
 
-	private final SpotifyApi spotify;
-	private final SpotifyConfig config;
-	private final ClientCredentialsRequest clientCredentialsRequest;
+	private final CountryCode countryCode;
 	private final AudioSourceManager searchAudioSourceManager;
+	private final ClientCredentialsRequest clientCredentialsRequest;
+	private final SpotifyApi spotify;
 	private final Thread thread;
 
-	public SpotifySourceManager(SpotifyConfig config, AudioSourceManager searchAudioSourceManager){
-		if(config.getClientId() == null || config.getClientId().isEmpty()){
+	public SpotifySourceManager(String clientId, String clientSecret, CountryCode countryCode, YoutubeAudioSourceManager searchAudioSourceManager){
+		if(clientId == null || clientId.isEmpty()){
 			throw new IllegalArgumentException("Spotify client id must be set");
 		}
-		if(config.getClientSecret() == null || config.getClientSecret().isEmpty()){
+		if(clientSecret == null || clientSecret.isEmpty()){
 			throw new IllegalArgumentException("Spotify secret must be set");
 		}
-		this.config = config;
+		if(countryCode == null){
+			countryCode = CountryCode.US;
+		}
+		this.countryCode = countryCode;
 		this.searchAudioSourceManager = searchAudioSourceManager;
-		this.spotify = new SpotifyApi.Builder().setClientId(config.clientId).setClientSecret(config.clientSecret).build();
+		this.spotify = new SpotifyApi.Builder().setClientId(clientId).setClientSecret(clientSecret).build();
 		this.clientCredentialsRequest = this.spotify.clientCredentials().build();
 
 		thread = new Thread(() -> {
@@ -197,7 +202,7 @@ public class SpotifySourceManager implements AudioSourceManager{
 
 	public AudioItem getArtist(String id) throws IOException, ParseException, SpotifyWebApiException{
 		var artist = this.spotify.getArtist(id).build().execute();
-		var artistTracks = this.spotify.getArtistsTopTracks(id, this.config.countryCode).build().execute();
+		var artistTracks = this.spotify.getArtistsTopTracks(id, this.countryCode).build().execute();
 
 		var tracks = new ArrayList<AudioTrack>();
 		for(var track : artistTracks){

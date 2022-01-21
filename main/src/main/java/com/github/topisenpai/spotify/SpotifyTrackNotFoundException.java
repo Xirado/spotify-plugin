@@ -1,4 +1,4 @@
-package com.github.topisenpai.plugin.spotify;
+package com.github.topisenpai.spotify;
 
 public class SpotifyTrackNotFoundException extends RuntimeException{
 

@@ -1,0 +1,19 @@
+plugins {
+    id "application"
+}
+
+mainClassName = "org.springframework.boot.loader.JarLauncher"
+
+dependencies {
+    implementation project(':main')
+    compileOnly "dev.arbjerg.lavalink:plugin-api:0.9.0"
+    runtimeOnly "com.github.freyacodes.lavalink:Lavalink-Server:f73ce7e"
+}
+
+shadowJar {
+    def impl = project.configurations.implementation
+    impl.canBeResolved(true)
+    configurations = [impl]
+    archiveClassifier.set("")
+    relocate "com.google.gson", "com.google.gson2"
+}

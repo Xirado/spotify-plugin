@@ -1,1 +1,2 @@
-rootProject.name = 'lavalink-spotify-plugin'
+include("main")
+include("plugin")

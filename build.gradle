@@ -1,46 +1,40 @@
-plugins {
-	id "java"
-	id "application"
-	id "maven-publish"
-	id "com.github.johnrengelman.shadow" version "7.1.1"
+buildscript {
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath "gradle.plugin.com.github.johnrengelman:shadow:7.1.2"
+    }
 }
 
-group "com.github"
-version "1.0.8"
-mainClassName = "org.springframework.boot.loader.JarLauncher"
 
-sourceCompatibility = 11
-compileJava.options.encoding = "UTF-8"
+allprojects {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven { url "https://jitpack.io" }
+        maven { url 'https://m2.dv8tion.net/releases' }
+    }
 
-
-repositories {
-	mavenCentral()
-	maven { url "https://jitpack.io" }
-
-	maven { url "https://m2.dv8tion.net/releases" }
-	jcenter()
+    group "com.github"
+    version "1.0.9"
 }
 
-dependencies {
-	compileOnly "dev.arbjerg.lavalink:plugin-api:0.9.0"
-	implementation "se.michaelthelin.spotify:spotify-web-api-java:7.0.0"
-	runtimeOnly "com.github.freyacodes.lavalink:Lavalink-Server:f73ce7e"
-}
+subprojects {
+    apply plugin: "java"
+    apply plugin: "maven-publish"
+    apply plugin: "com.github.johnrengelman.shadow"
 
-shadowJar {
-	def impl = project.configurations.implementation
-	impl.canBeResolved(true)
-	configurations = [impl]
-	archiveClassifier.set("")
-	relocate "com.google.gson", "com.google.gson2"
-}
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 
-publishing {
-	publications {
-		maven(MavenPublication) {
-			pom {
-				from components.java
-			}
-		}
-	}
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                pom {
+                    from components.java
+                }
+            }
+        }
+    }
 }

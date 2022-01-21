@@ -72,7 +72,7 @@ followed by a `TrackExceptionEvent` and later `TrackEndEvent`
   "error": "Something broke when playing the track.",
   "exception": {
     "severity": "FAULT",
-    "cause": "com.github.topisenpai.plugin.spotify.SpotifyTrackNotFoundException: No matching track found",
+    "cause": "SpotifyTrackNotFoundException: No matching track found",
     "message": "Something broke when playing the track."
   }
 }

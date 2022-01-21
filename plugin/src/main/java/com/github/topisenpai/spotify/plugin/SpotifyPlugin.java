@@ -1,5 +1,6 @@
-package com.github.topisenpai.plugin.spotify;
+package com.github.topisenpai.spotify.plugin;
 
+import com.github.topisenpai.spotify.SpotifySourceManager;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager;
 import dev.arbjerg.lavalink.api.AudioPlayerManagerConfiguration;
@@ -21,15 +22,18 @@ public class SpotifyPlugin implements AudioPlayerManagerConfiguration{
 
 	@Override
 	public AudioPlayerManager configure(AudioPlayerManager manager){
-		if(config.clientId == null || config.clientId.isEmpty()){
+		if(config.getClientId() == null || config.getClientId().isEmpty()){
 			log.error("No spotify client id found in configuration. Not registering spotify source manager. Config key is 'plugins.spotify.clientId");
 			return manager;
 		}
-		if(config.clientSecret == null || config.clientSecret.isEmpty()){
+		if(config.getClientSecret() == null || config.getClientSecret().isEmpty()){
 			log.error("No spotify client secret found in configuration. Not registering spotify source manager. Config key is 'plugins.spotify.clientSecret");
 			return manager;
 		}
-		manager.registerSourceManager(new SpotifySourceManager(this.config, manager.source(YoutubeAudioSourceManager.class)));
+		if(config.getCountryCode() == null){
+			log.error("No spotify country code found in configuration. Defaulting to US. Config key is 'plugins.spotify.countryCode");
+		}
+		manager.registerSourceManager(new SpotifySourceManager(this.config.getClientId(), this.config.getClientSecret(), this.config.getCountryCode(), manager.source(YoutubeAudioSourceManager.class)));
 		return manager;
 	}
 

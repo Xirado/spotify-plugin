@@ -1,6 +1,7 @@
-build
 .gradle
 .idea
-!gradle/wrapper/gradle-wrapper.jar
-application.yml
-logs/
+
+main/build/
+plugin/build/
+plugin/application.yml
+plugin/logs/
