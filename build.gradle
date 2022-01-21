@@ -8,6 +8,10 @@ subprojects {
     group "com.github"
     version "1.0.9"
 
+    ext {
+        artifactId = project.name
+    }
+
     repositories {
         mavenCentral()
         jcenter()
