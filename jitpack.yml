@@ -1,4 +1,5 @@
 jdk:
   - openjdk11
 install:
-  - ./gradlew clean plugin:shadowJar plugin:publishToMavenLocal -x jar
+    - ./gradlew clean main:shadowJar main:publishToMavenLocal -x jar
+    - ./gradlew clean plugin:shadowJar plugin:publishToMavenLocal -x jar
