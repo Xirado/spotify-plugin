@@ -19,3 +19,8 @@ shadowJar {
     relocate "com.google.gson", "com.google.gson2"
 }
 
+build {
+    dependsOn { clean }
+    dependsOn { jar }
+    dependsOn { shadowJar }
+}

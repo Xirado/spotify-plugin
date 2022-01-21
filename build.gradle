@@ -27,10 +27,4 @@ subprojects {
             }
         }
     }
-
-    build {
-        dependsOn { clean }
-        dependsOn { jar }
-        dependsOn { shadowJar }
-    }
 }
