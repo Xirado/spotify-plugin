@@ -19,7 +19,25 @@ shadowJar {
     relocate "com.google.gson", "com.google.gson2"
 }
 
-build {
+
+
+shadowJar {
+    dependsOn(jar)
+}
+
+distTar {
+    dependsOn(shadowJar)
+}
+
+distZip {
+    dependsOn(shadowJar)
+}
+
+startScripts {
+    dependsOn(shadowJar)
+}
+
+assemble {
     dependsOn { clean }
     dependsOn { jar }
     dependsOn { shadowJar }
