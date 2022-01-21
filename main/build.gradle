@@ -14,9 +14,7 @@ shadowJar {
 publishing {
     publications {
         maven(MavenPublication) {
-            pom {
-                from components.java
-            }
+            from components.java
         }
     }
 }
