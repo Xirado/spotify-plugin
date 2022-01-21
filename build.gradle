@@ -1,4 +1,4 @@
-subprojects {
+allprojects {
     apply plugin: "java"
     apply plugin: "maven-publish"
 
@@ -19,7 +19,9 @@ subprojects {
         maven { url 'https://m2.dv8tion.net/releases' }
     }
 
+}
 
+subprojects {
     publishing {
         publications {
             maven(MavenPublication) {
