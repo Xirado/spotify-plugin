@@ -7,10 +7,6 @@ dependencies {
     api "se.michaelthelin.spotify:spotify-web-api-java:7.0.0"
 }
 
-shadowJar {
-    archiveClassifier.set("")
-}
-
 publishing {
     publications {
         maven(MavenPublication) {
