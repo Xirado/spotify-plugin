@@ -7,10 +7,3 @@ dependencies {
     api "se.michaelthelin.spotify:spotify-web-api-java:7.0.0"
 }
 
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from components.java
-        }
-    }
-}

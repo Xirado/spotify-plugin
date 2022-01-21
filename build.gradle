@@ -14,4 +14,19 @@ subprojects {
         maven { url "https://jitpack.io" }
         maven { url 'https://m2.dv8tion.net/releases' }
     }
+
+
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                from components.java
+            }
+        }
+    }
+
+    build {
+        dependsOn { clean }
+        dependsOn { jar }
+        dependsOn { shadowJar }
+    }
 }
