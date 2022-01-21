@@ -17,3 +17,13 @@ shadowJar {
     archiveClassifier.set("")
     relocate "com.google.gson", "com.google.gson2"
 }
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            pom {
+                from components.java
+            }
+        }
+    }
+}
