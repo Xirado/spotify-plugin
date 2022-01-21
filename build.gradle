@@ -18,6 +18,10 @@ subprojects {
     group "com.github"
     version "1.0.9"
 
+    artifacts {
+        shadowJar
+    }
+
     repositories {
         mavenCentral()
         jcenter()
