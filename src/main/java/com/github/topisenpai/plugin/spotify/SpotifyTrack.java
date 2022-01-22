@@ -1,6 +1,8 @@
 package com.github.topisenpai.plugin.spotify;
 
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManager;
+import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
+import com.sedmelluq.discord.lavaplayer.tools.FriendlyException.Severity;
 import com.sedmelluq.discord.lavaplayer.track.AudioItem;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioReference;
@@ -78,7 +80,7 @@ public class SpotifyTrack extends DelegatedAudioTrack {
 			processDelegate((InternalAudioTrack) track, executor);
 			return;
 		}
-		throw new SpotifyTrackNotFoundException();
+		throw new FriendlyException("No matching Spotify track found", Severity.COMMON, new SpotifyTrackNotFoundException());
 	}
 
 	@Override

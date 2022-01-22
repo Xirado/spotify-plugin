@@ -71,8 +71,8 @@ followed by a `TrackExceptionEvent` and later `TrackEndEvent`
   "track": "QAAAdwIADTMyNTM0NmI0NTZiNTYAEDc0NXY5NjQ4OTY3dmI0ODkAAAAAAAO9CAALamRXaEpjcnJqUXMAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1qZFdoSmNycmpRcwAHc3BvdGlmeQAAAAAAA7ok",
   "error": "Something broke when playing the track.",
   "exception": {
-    "severity": "FAULT",
-    "cause": "com.github.topisenpai.plugin.spotify.SpotifyTrackNotFoundException: No matching track found",
+    "severity": "COMMON",
+    "cause": "com.github.topisenpai.plugin.spotify.SpotifyTrackNotFoundException: No matching Spotify track found",
     "message": "Something broke when playing the track."
   }
 }

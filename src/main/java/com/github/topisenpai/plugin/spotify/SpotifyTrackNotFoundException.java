@@ -1,9 +1,5 @@
 package com.github.topisenpai.plugin.spotify;
 
 public class SpotifyTrackNotFoundException extends RuntimeException {
-
-	public SpotifyTrackNotFoundException() {
-		super("No matching track found");
-	}
-
+	private static final long serialVersionUID = 6550093849278285754L;
 }
