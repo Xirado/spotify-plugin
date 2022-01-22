@@ -72,7 +72,7 @@ followed by a `TrackExceptionEvent` and later `TrackEndEvent`
   "error": "Something broke when playing the track.",
   "exception": {
     "severity": "COMMON",
-    "cause": "com.sedmelluq.discord.lavaplayer.tools.FriendlyException: No matching Spotify track found",
+    "cause": "com.github.topisenpai.plugin.spotify.SpotifyTrackNotFoundException: No matching Spotify track found",
     "message": "Something broke when playing the track."
   }
 }
