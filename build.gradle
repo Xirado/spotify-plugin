@@ -17,11 +17,12 @@ subprojects {
 		maven { url 'https://m2.dv8tion.net/releases' }
 	}
 
-	publishing {
-		publications {
-			maven(MavenPublication) {
-				from components.java
-			}
-		}
+	task sourcesJar(type: Jar, dependsOn: classes) {
+		archiveClassifier = 'sources'
+		from sourceSets.main.allSource
+	}
+
+	artifacts {
+		archives sourcesJar
 	}
 }

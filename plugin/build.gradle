@@ -1,6 +1,6 @@
 plugins {
 	id "application"
-	id "com.github.johnrengelman.shadow" version "7.1.2"
+	//id "com.github.johnrengelman.shadow" version "7.1.2"
 }
 
 mainClassName = "org.springframework.boot.loader.JarLauncher"
@@ -11,6 +11,7 @@ dependencies {
 	runtimeOnly "com.github.freyacodes.lavalink:Lavalink-Server:d88d1c6"
 }
 
+/*
 shadowJar {
 	def impl = project.configurations.implementation
 	impl.canBeResolved(true)
@@ -26,4 +27,4 @@ build {
 
 artifacts {
 	archives shadowJar
-}
+}*/
