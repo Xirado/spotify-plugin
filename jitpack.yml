@@ -1,5 +1,7 @@
 jdk:
     - openjdk11
+before_install:
+    - echo "Running a custom before_install command"
 install:
     - echo "Running a custom install command"
     - ./gradlew clean build publishToMavenLocal
