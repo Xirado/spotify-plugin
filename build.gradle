@@ -1,32 +1,27 @@
 subprojects {
-    apply plugin: "java"
-    apply plugin: "maven-publish"
+	apply plugin: "java"
+	apply plugin: "maven-publish"
 
-    java {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-        withSourcesJar()
-    }
+	java {
+		sourceCompatibility = JavaVersion.VERSION_11
+		targetCompatibility = JavaVersion.VERSION_11
+	}
 
-    group "com.github"
-    version "1.0.9"
+	group "com.github.TopiSenpai"
+	version "1.0.9"
 
-    ext {
-        artifactId = project.name
-    }
+	repositories {
+		mavenCentral()
+		jcenter()
+		maven { url "https://jitpack.io" }
+		maven { url 'https://m2.dv8tion.net/releases' }
+	}
 
-    repositories {
-        mavenCentral()
-        jcenter()
-        maven { url "https://jitpack.io" }
-        maven { url 'https://m2.dv8tion.net/releases' }
-    }
-
-    publishing {
-        publications {
-            maven(MavenPublication) {
-                from components.java
-            }
-        }
-    }
+	publishing {
+		publications {
+			maven(MavenPublication) {
+				from components.java
+			}
+		}
+	}
 }
