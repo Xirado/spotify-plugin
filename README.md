@@ -69,7 +69,12 @@ followed by a `TrackExceptionEvent` and later `TrackEndEvent`
   "type": "TrackExceptionEvent",
   "guildId": "730879265956167740",
   "track": "QAAAdwIADTMyNTM0NmI0NTZiNTYAEDc0NXY5NjQ4OTY3dmI0ODkAAAAAAAO9CAALamRXaEpjcnJqUXMAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1qZFdoSmNycmpRcwAHc3BvdGlmeQAAAAAAA7ok",
-  "error": "No matching Spotify track found"
+  "error": "Something broke when playing the track.",
+  "exception": {
+    "severity": "COMMON",
+    "cause": "com.sedmelluq.discord.lavaplayer.tools.FriendlyException: No matching Spotify track found",
+    "message": "Something broke when playing the track."
+  }
 }
 ```
 
