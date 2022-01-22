@@ -80,7 +80,7 @@ public class SpotifyTrack extends DelegatedAudioTrack {
 			processDelegate((InternalAudioTrack) track, executor);
 			return;
 		}
-		throw new FriendlyException("No matching Spotify track found", Severity.COMMON, null);
+		throw new FriendlyException("No matching Spotify track found", Severity.COMMON, new SpotifyTrackNotFoundException());
 	}
 
 	@Override
