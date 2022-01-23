@@ -32,6 +32,7 @@ public class SpotifySourceManager implements AudioSourceManager{
 
 	public static final Pattern SPOTIFY_URL_PATTERN = Pattern.compile("(https?://)?(www\\.)?open\\.spotify\\.com/(user/[a-zA-Z0-9-_]+/)?(?<type>track|album|playlist|artist)/(?<identifier>[a-zA-Z0-9-_]+)");
 	public static final String SEARCH_PREFIX = "spsearch:";
+	public static final int MAX_PAGE_ITEMS = 100;
 
 	private static final Logger log = LoggerFactory.getLogger(SpotifyPlugin.class);
 
@@ -166,7 +167,7 @@ public class SpotifySourceManager implements AudioSourceManager{
 
 		Paging<TrackSimplified> paging = null;
 		do{
-			paging = this.spotify.getAlbumsTracks(id).limit(50).offset(paging == null ? 0 : paging.getOffset() + 50).build().execute();
+			paging = this.spotify.getAlbumsTracks(id).limit(MAX_PAGE_ITEMS).offset(paging == null ? 0 : paging.getOffset() + MAX_PAGE_ITEMS).build().execute();
 			for(var track : paging.getItems()){
 				tracks.add(SpotifyTrack.of(track, album, this));
 			}
@@ -182,9 +183,9 @@ public class SpotifySourceManager implements AudioSourceManager{
 
 		Paging<PlaylistTrack> paging = null;
 		do{
-			paging = this.spotify.getPlaylistsItems(id).limit(50).offset(paging == null ? 0 : paging.getOffset() + 50).build().execute();
+			paging = this.spotify.getPlaylistsItems(id).limit(MAX_PAGE_ITEMS).offset(paging == null ? 0 : paging.getOffset() + MAX_PAGE_ITEMS).build().execute();
 			for(var item : paging.getItems()){
-				if(item.getIsLocal() || item.getTrack() != null || item.getTrack().getType() != ModelObjectType.TRACK){
+				if(item.getIsLocal() || item.getTrack() == null || item.getTrack().getType() != ModelObjectType.TRACK){
 					continue;
 				}
 				tracks.add(SpotifyTrack.of((Track) item.getTrack(), this));
